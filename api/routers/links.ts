@@ -42,9 +42,18 @@ linkRouter.post('/', async (req, res, next) => {
     try {
         const originalUrl = req.body.originalUrl;
 
-        const { nanoid } = require('nanoid/non-secure');
+        const generateShortUrl = (length: number = 6 | 7): string => {
+            const characters = 'ABCDEFGHIJKLMNOPQWXYZabcdefghijklmnopqrst';
+            let result = '';
 
-        const shortUrl = nanoid(7);
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+
+            return result;
+        };
+
+        const shortUrl = generateShortUrl(6 | 7);
 
         const newLink: LinkWithoutId = {
             originalUrl: originalUrl,
